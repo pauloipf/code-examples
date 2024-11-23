@@ -21,16 +21,21 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
 print('CHAT MULTICAST')
 
+name = input('Enter your name: ')
+
 # Função para receber mensagens
 def receive_messages():
     while True:
         data, address = sock.recvfrom(1024)
         print(f'from {address}: {data.decode()}')
+        print('Message ')
 
 # Criação e início da thread para receber mensagens
 receive_thread = threading.Thread(target=receive_messages)
 receive_thread.daemon = True
 receive_thread.start()
+login = sock.sendto(f'{name} has joined the chat'.encode(), (multicast_group, 10000))
+
 
 try:
     while True:
