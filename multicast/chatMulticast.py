@@ -27,7 +27,7 @@ name = input('Enter your name: ')
 def receive_messages():
     while True:
         data, address = sock.recvfrom(1024)
-        print(f'from {address}: {data.decode()}')
+        print(f'Message from {address}: {data.decode()}')
 
 # Criação e início da thread para receber mensagens
 receive_thread = threading.Thread(target=receive_messages)
